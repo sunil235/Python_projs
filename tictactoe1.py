@@ -10,7 +10,7 @@ Tic Tac Toe
 import random
 def test_f_board():
     print("Board position legend :") 
-    f_fill_board()
+    test_f_fill_board()
     
 def test_f_reset_board():
     global game_state
@@ -100,8 +100,8 @@ def test_f_play():
              print("***Already used****")
            else:
             print("Invalid entry,Try again \n")
-         f_fill_board()
-         f_check_status()
+         test_f_fill_board()
+         test_f_check_status()
 
 ##Call the functions 
 test_f_reset_board()
