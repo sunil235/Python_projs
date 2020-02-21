@@ -109,7 +109,8 @@ def test_main():
  f_board()
  f_ask_player()
  f_play()
-  
+ 
+test_main()
   
 
 
