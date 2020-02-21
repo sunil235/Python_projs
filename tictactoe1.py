@@ -104,10 +104,10 @@ def test_f_play():
          f_check_status()
 
 ##Call the functions 
- test_f_reset_board()
- test_f_board()
- test_f_ask_player()
- test_f_play()
+test_f_reset_board()
+test_f_board()
+test_f_ask_player()
+test_f_play()
  
 
 
