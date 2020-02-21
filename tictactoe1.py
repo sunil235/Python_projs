@@ -8,11 +8,11 @@ Created on Thu Jan 25 13:53:32 2018
 Tic Tac Toe
 """
 import random
-def f_board():
+def test_f_board():
     print("Board position legend :") 
     f_fill_board()
     
-def f_reset_board():
+def test_f_reset_board():
     global game_state
     global l
     global a
@@ -22,7 +22,7 @@ def f_reset_board():
     l = ['0','1','2','3','4','5','6','7','8','9']
     print("\033[H\033[J")  
     
-def f_ask_player():
+def test_f_ask_player():
     while True:
         global a
         z = random.randint(0,1)
@@ -39,7 +39,7 @@ def f_ask_player():
             a = None
             print("\nInvalid entry ; Try again")
             
-def f_fill_board():
+def test_f_fill_board():
     global l
     print(l[7]+" | "+l[8]+" | "+l[9])
     print("--|---|--")
@@ -47,7 +47,7 @@ def f_fill_board():
     print("--|---|--")
     print(l[1]+" | "+l[2]+" | "+l[3])
 
-def f_check_status():
+def test_f_check_status():
     global game_state
     if ( (l[7] == 'X' and (l[7] == l[8] == l[9]  or l[7] == l[4] == l[1])) \
           or  (l[3] == 'X' and ( l[1] == l[2] == l[3] or l[3] == l[6] == l[9] )) \
@@ -73,7 +73,7 @@ def f_check_status():
     else:
        game_state = True   
        
-def f_play():
+def test_f_play():
       global x
       global a
       global game_state
@@ -104,14 +104,12 @@ def f_play():
          f_check_status()
 
 ##Call the functions 
-def test_main():
- f_reset_board()
- f_board()
- f_ask_player()
- f_play()
+ test_f_reset_board()
+ test_f_board()
+ test_f_ask_player()
+ test_f_play()
  
-test_main()
-  
+
 
 
     
