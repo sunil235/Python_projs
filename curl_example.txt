@@ -1,0 +1,4 @@
+curl -i -X POST -H "Content-Type: application/json" -d "{\"text\": \"Hello, this is some text\nThis is more text\"}" http://www.itsallinside.info:443/mattermost/hooks/syuj3uq9rt87xg7ukrfh7xcpfa
+
+
+curl -i -X POST -H "Content-Type: application/json" -d "{\"text\": \"This is a test\"}" https://www.itsallinside.info/mattermost/hooks/syuj3uq9rt87xg7ukrfh7xcpfa
