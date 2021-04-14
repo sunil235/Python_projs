@@ -1,2 +1,2 @@
 # Python_projs
-This file is used to simulate a tic tac toe game example 
+Collection of pythn scripts  in this repository , examples of Spark, ML etc
