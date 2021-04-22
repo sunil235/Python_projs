@@ -1,0 +1,57 @@
+--Spark connecting to Oracle db
+
+1.Download ojdbc7.jar from oracle site
+2.copy the jar in $spark_home/jars folder
+3.start spark using --jars , spark-shell --jars "c:\spark\jars\ojdbc7.jar"
+-->
+val shopDF = spark.read.format("jdbc").option("url","jdbc:oracle:thin:dunkin/dunkin@//localhost:1521/orcl").option("dbtable","dunkin.shop_d").option("driver","oracle.jdbc.driver.OracleDriver").load()
+shopDF.printSchema() 
+shopDF.show(5)
+
+
+
+--groupBY
+
+scala> shopDF.groupBy("brand_name","netwrk_name").agg(count("*").as("COUNT"))
+res23: org.apache.spark.sql.DataFrame = [brand_name: string, netwrk_name: string ... 1 more field]
+
+scala> shopDF.groupBy("brand_name","netwrk_name").agg(count("*").as("COUNT")).show()
++--------------+-----------+-----+
+|    brand_name|netwrk_name|COUNT|
++--------------+-----------+-----+
+|Baskin Robbins|    SHELTON|   16|
+| Dunkin Donuts|     CONNOR|   16|
+|Togos Eateries|    SHELTON|    3|
+| Dunkin Donuts|    SHELTON|   22|
++--------------+-----------+-----+
+
+
+scala> shopDF.groupBy("brand_name","netwrk_name").agg(count("*").as("COUNT")).explain()
+== Physical Plan ==
+*(2) HashAggregate(keys=[brand_name#4, netwrk_name#6], functions=[count(1)])
++- Exchange hashpartitioning(brand_name#4, netwrk_name#6, 200)
+   +- *(1) HashAggregate(keys=[brand_name#4, netwrk_name#6], functions=[partial_count(1)])
+      +- *(1) Scan JDBCRelation(dunkin.shop_d) [numPartitions=1] [BRAND_NAME#4,NETWRK_NAME#6] PushedFilters: [], ReadSchema: struct<BRAND_NAME:string,NETWRK_NAME:string>
+
+scala> shopDF.groupBy("brand_name","netwrk_name").agg(count("*").as("COUNT")).show(20,false)
++--------------+-----------+-----+
+|brand_name    |netwrk_name|COUNT|
++--------------+-----------+-----+
+|Baskin Robbins|SHELTON    |16   |
+|Dunkin Donuts |CONNOR     |16   |
+|Togos Eateries|SHELTON    |3    |
+|Dunkin Donuts |SHELTON    |22   |
++--------------+-----------+-----+
+
+
+--joins 
+
+val laborDF = spark.read.format("jdbc").option("url","jdbc:oracle:thin:dunkin/dunkin@//localhost:1521/orcl").option("dbtable","dunkin.labor_agg_f").option("driver","oracle.jdbc.driver.OracleDriver").load()
+
+val joinedDF = laborDF.join(shopDF,laborDF("dwh_shop_id")===shopDF("dwh_shop_id"),"right")
+
+val resultsDF = joinedDF.groupBy("brand_name","netwrk_name").agg(count("*").as("Count"),round(sum("labor_cost_amt"),2).as("Total_Labor_cost"),round(avg("labor_cost_amt"),2).as("Average_Labor_Cost")).na.fill(0).sort(desc("Average_L
+abor_Cost"))
+
+resultsDF.show()
+
