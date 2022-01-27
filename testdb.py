@@ -20,22 +20,17 @@ import cx_Oracle
 #from matplotlib import style
 #buffer = StringIO()
 #c = pycurl.Curl()
-#c.setopt(c.URL,'https://www.itsallinside.info/mattermost/hooks/syuj3uq9rt87xg7ukrfh7xcpfa')
+#c.setopt(c.URL,'https://www.website.info/mattermost/hooks/XXXXXXX')
 
 #data = {"text": "This is TestX"}
-#response = requests.post('https://www.itsallinside.info/mattermost/hooks/syuj3uq9rt87xg7ukrfh7xcpfa', json=data)
+#response = requests.post('https://www.website.info/mattermost/hooks/XXXXXXX', json=data)
 #print(response.status_code)
 
 
 foo = Driver({
      'scheme': 'https',   
-     'url': 'www.itsallinside.info',
-     #'login_id': 'sunil',
-     #'password': '',
-     'token': 'jteh3fqk4bn17d43t7wsoitojw',
-     #'mfa_token': '',
-     #'basepath' : '/hooks/syuj3uq9rt87xg7ukrfh7xcpfa',
-     #'basepath' :'/mattermost/hooks/syuj3uq9rt87xg7ukrfh7xcpfa',
+     'url': 'www.website.info',
+     'token': 'XXXXXXXXXXXX',
      'port': 443,
      'debug': False,
      #'verify' : False
@@ -43,7 +38,7 @@ foo = Driver({
 })
 
 foo.login()
-webhook_url = 'https://www.itsallinside.info/mattermost/hooks/syuj3uq9rt87xg7ukrfh7xcpfa'
+webhook_url = 'https://www.website.info/mattermost/hooks/XXXXXXXX'
 
 claims_sql = """
 SELECT "WEEK","INITIAL",NVL2(INIT_PCT,INIT_PCT||'%',NULL) "INIT_PCT","REOPENED",NVL2(REOP_PCT,REOP_PCT||'%',NULL)  "REOP_PCT","CONTINUED",NVL2(CONT_PCT,CONT_PCT||'%',NULL) "CONT_PCT"
@@ -140,11 +135,8 @@ ORDER BY AP.RQST_WK_DT DESC
 
 # Connect as user "hr" with password "welcome" to the "oraclepdb" service running on this computer.
 
-#prod
-#conn = cx_Oracle.connect("sdabbiru", "T12AbONKwD", "uicproddv01")
-
 #DVCI
-conn = cx_Oracle.connect("ufactsapp", "ynPMp25Ea97V", "uicdvr01")
+conn = cx_Oracle.connect("ufactsapp", "XXXXXXX", "uicdvr01")
 
 cursor = conn.cursor()
 
@@ -257,14 +249,13 @@ foo.posts.create_post(options={
 """
 foo.posts.create_post(options={
     'user_id': 'o4zinmem1td3bkwhpx1cwmybrw',   
-    'url': 'https://www.itsallinside.info/mattermost/hooks/syuj3uq9rt87xg7ukrfh7xcpfa',
+    'url': 'https://www.website.info/mattermost/hooks/XXXXXXXXXXX',
     #'message': msg1+msg2+msg
     'message': 'This is test'
     ,
      })
 """
-#cmd = "curl -i -X POST -H"+" " + "\"" + "Content-Type: application/json"+ "\"" + " " +  "-d " + "\"" +  "{\\" + "\"" + "text" + "\\" + "\"" + ":" +  "\\" + "\"" + "This is test" + "\\" + "\"" + "}" + "\"" + " https://www.itsallinside.info/mattermost/hooks/syuj3uq9rt87xg7ukrfh7xcpfa"
-#foo.webhooks.call_webhook('syuj3uq9rt87xg7ukrfh7xcpfa',options={"text": "This is TestX"})
+
 
 conn.close()
 
